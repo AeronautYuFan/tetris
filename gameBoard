@@ -1,14 +1,15 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class gameBoard extends JPanel implements ActionListener, KeyListener {
   // the tile size of each grid block
-  private tileSize = 64;
+  private int tileSize = 64;
   // # of rows
-  private rows = 12;
+  private int rows = 12;
   // # of columns
-  private columns = 20;
+  private int columns = 20;
   // keeps track of the score of the player
   private int score;
   private int line;
