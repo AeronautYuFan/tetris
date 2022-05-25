@@ -3,6 +3,15 @@ import java.awt;
 class Block implements Yes {
     private int xLoc;
     private int yLoc;
+    
+    public Block(int x) {
+        xLoc = x;
+        yLoc = 0;
+    }
+    
+    public void setY(int y) {
+        yLoc = y;
+    }
 
     public int getX() {
         return xLoc;
