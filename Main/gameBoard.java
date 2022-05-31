@@ -84,6 +84,14 @@ public class gameBoard extends JPanel{
         }
          */
     }
+    
+    // need a way to remove a row of tetris pieces
+    public void removeRow(){
+    }
+
+    // checks if there is a filled row, if so, the method removeRow() is used and the score is increased
+    public void clearRow(){
+    }
 
     public gameBoard(){
         //sets the dimensions of the board
