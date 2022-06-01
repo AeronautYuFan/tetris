@@ -22,6 +22,8 @@ public class gameBoard extends JPanel{
     private Color[][] color;
     //2D array of booleans for each tile
     private boolean[][] fill;
+    //a coordinate of where the origin of the piece is
+    private Point origin;
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
@@ -50,47 +52,8 @@ public class gameBoard extends JPanel{
                 g.fillRect(tileSize * i, tileSize * j, tileSize - 1, tileSize - 1);
             }
         }
-        // Finish line
-        /*
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, 505, tileSize * columns, tileSize * 3);
-        for (int i = 0; i < columns - 2; i++) {
-            for (int j = 0; j < 3; j += 2) {
-                if (i % 2 == 0) {
-                    g.setColor(Color.BLACK);
-                    g.fillRect(tileSize * i + tileSize, tileSize * j + 505, tileSize, tileSize);
-                } else {
-                    g.setColor(Color.WHITE);
-                    g.fillRect(tileSize * i + tileSize, tileSize * j + 505, tileSize, tileSize);
-                }
-            }
-        }
-        for (int i = 0; i < columns - 2; i++) {
-            for (int j = 1; j < 3; j += 2) {
-                if (i % 2 == 0) {
-                    g.setColor(Color.BLACK);
-                    g.fillRect(tileSize * (i + 1) + tileSize, tileSize * j + 505, tileSize, tileSize);
-                } else {
-                    g.setColor(Color.WHITE);
-                    g.fillRect(tileSize * (i - 1) + tileSize, tileSize * j + 505, tileSize, tileSize);
-                }
-            }
-        }
-        for (int j = 0; j < 3; j++) {
-            for (int i = 0; i < 2; i++) {
-                g.setColor(Color.GRAY);
-                g.fillRect(tileSize * i, tileSize * j + 568, tileSize - 1, tileSize - 1);
-            }
-        }
-         */
-    }
-    
-    // need a way to remove a row of tetris pieces
-    public void removeRow(){
-    }
+        drawPiece(g);
 
-    // checks if there is a filled row, if so, the method removeRow() is used and the score is increased
-    public void clearRow(){
     }
 
     public gameBoard(){
@@ -98,6 +61,7 @@ public class gameBoard extends JPanel{
         setPreferredSize(new Dimension(columns*tileSize, rows*tileSize));
         //initialize the state of the game
         init();
+        newPiece();
         score = 0;
         line = 0;
         level = 0;
@@ -106,5 +70,23 @@ public class gameBoard extends JPanel{
     public boolean isFilled(int x, int y){
         return(fill[y][x]);
     }
+
+    public void newPiece(){
+        origin = new Point(6, 1);
+    }
+
+    public void drawPiece(Graphics g){
+        g.setColor(Color.RED);
+        g.fillRect(origin.x*tileSize, origin.y*tileSize,tileSize-1, tileSize-1);
+    }
+
+    // need a way to remove a row of tetris pieces
+    public void removeRow(){
+    }
+
+    // checks if there is a filled row, if so, the method removeRow() is used and the score is increased
+    public void clearRow(){
+    }
+
 
 }
