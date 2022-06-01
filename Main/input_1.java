@@ -14,6 +14,9 @@ public class input_1 extends KeyAdapter
     if (key == KeyEvent.VK_DOWN) {
         //TO DO
     }
+    if (key == KeyEvent.VK_UP) {
+        //TO DO
+    }
     
 }
 }
