@@ -30,18 +30,22 @@ class Block implements Yes {
     }
 
     public boolean moveLeft() {
+       if (isGrounded == false) {
         if(xLoc > 0) {
             xLoc--;
             return true;
         }
+       }
         return false;
     }
 
     public boolean moveRight() {
+       if (isGrounded == false) {
         if(xLoc < 12) {
             xLoc++;
             return true;
         }
+       }
         return false;
     }
 
