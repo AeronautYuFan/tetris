@@ -8,12 +8,12 @@ public class Tetris extends JFrame {
         pack();
 
         setLocationRelativeTo(null);
-        setIgnoreRepaint(true);
         setResizable (true);
         setVisible (true);
+
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Tetris();
     }
 }
