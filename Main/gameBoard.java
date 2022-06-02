@@ -1,11 +1,7 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.JPanel;
+import java.awt.event.*;
 
 public class gameBoard extends JPanel{
     // the tile size of each grid block
@@ -24,6 +20,7 @@ public class gameBoard extends JPanel{
     private boolean[][] fill;
     //a coordinate of where the origin of the piece is
     private Point origin;
+    private Timer timer;
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
@@ -61,11 +58,27 @@ public class gameBoard extends JPanel{
         setPreferredSize(new Dimension(columns*tileSize, rows*tileSize));
         //initialize the state of the game
         init();
-        newPiece();
         score = 0;
         line = 0;
         level = 0;
+        //The pieces
+        newPiece();
+
+        //Moves the pieces down every second
+        new Thread() {
+            @Override public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(850);
+                        moveDown();
+                        repaint();
+                    } catch ( InterruptedException e ) {}
+                }
+            }
+        }.start();
+
     }
+
 
     public boolean isFilled(int x, int y){
         return(fill[y][x]);
@@ -73,11 +86,22 @@ public class gameBoard extends JPanel{
 
     public void newPiece(){
         origin = new Point(6, 1);
+        fill[1][6] = true;
     }
 
     public void drawPiece(Graphics g){
         g.setColor(Color.RED);
         g.fillRect(origin.x*tileSize, origin.y*tileSize,tileSize-1, tileSize-1);
+    }
+
+    public void moveDown(){
+
+        if(origin.y < rows - 2 && fill[origin.y + 1][origin.x] == false ) {
+            int oldY = origin.y;
+            origin.y+=1;
+            fill[origin.y][origin.x] = true;
+            fill[oldY][origin.x] = false;
+        }
     }
 
     // need a way to remove a row of tetris pieces
@@ -87,6 +111,8 @@ public class gameBoard extends JPanel{
     // checks if there is a filled row, if so, the method removeRow() is used and the score is increased
     public void clearRow(){
     }
+
+
 
 
 }
