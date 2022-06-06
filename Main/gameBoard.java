@@ -47,6 +47,7 @@ public class gameBoard extends JPanel{
         // Draws the falling piece
         drawPiece(g);
 
+
     }
 
     public gameBoard(){
@@ -72,22 +73,28 @@ public class gameBoard extends JPanel{
 
     }
 
-
-
     public boolean isFilled(int x, int y){
         return(fill[y][x]);
     }
 
+    // Creates a new piece at the origin. Need to randomize piece type
     public void newPiece(){
-        origin = new Point(6, 1);
-        fill[1][6] = true;
+        origin = new Point(6, 0);
+        fill[0][6] = true;
     }
 
+    // Draws the piece on the board. Need to randomize color
     public void drawPiece(Graphics g){
         g.setColor(Color.RED);
         g.fillRect(origin.x*tileSize, origin.y*tileSize,tileSize-1, tileSize-1);
     }
 
+    // Fixes the block in its place (Makes the block a part of the background
+    public void setPiece(){
+        color[origin.x][origin.y] = Color.RED;
+    }
+
+    // Moves the current block down 1 grid until it collides with the border of another block
     public void moveDown(){
 
         if(origin.y < rows - 2 && fill[origin.y + 1][origin.x] == false ) {
@@ -96,8 +103,10 @@ public class gameBoard extends JPanel{
             fill[origin.y][origin.x] = true;
             fill[oldY][origin.x] = false;
         }
-        else
+        else{
+            setPiece();
             newPiece();
+        }
     }
 
     // need a way to remove a row of tetris pieces
