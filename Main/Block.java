@@ -1,4 +1,4 @@
-import java.awt;
+import java.awt.*;
 
 class Block implements Yes {
     private int xLoc;
