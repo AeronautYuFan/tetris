@@ -30,7 +30,7 @@ class Block implements Yes {
     }
 
     public boolean moveLeft() {
-       if (this.isGrounded == false) {
+       if (this.isGrounded() == false) {
         if(xLoc > 0) {
             xLoc--;
             return true;
@@ -40,7 +40,7 @@ class Block implements Yes {
     }
 
     public boolean moveRight() {
-       if (this.isGrounded == false) {
+       if (this.isGrounded() == false) {
         if(xLoc < 12) {
             xLoc++;
             return true;
