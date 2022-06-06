@@ -10,17 +10,12 @@ public class gameBoard extends JPanel{
     private final int columns = 14;
     // # of columns
     private final int rows = 21;
-    // keeps track of the score of the player
-    private int score;
-    private int line;
-    private int level;
     //2D array for the colors of the board
     private Color[][] color;
     //2D array of booleans for each tile
     private boolean[][] fill;
     //a coordinate of where the origin of the piece is
     private Point origin;
-    private Timer timer;
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
@@ -49,6 +44,7 @@ public class gameBoard extends JPanel{
                 g.fillRect(tileSize * i, tileSize * j, tileSize - 1, tileSize - 1);
             }
         }
+        // Draws the falling piece
         drawPiece(g);
 
     }
@@ -58,9 +54,6 @@ public class gameBoard extends JPanel{
         setPreferredSize(new Dimension(columns*tileSize, rows*tileSize));
         //initialize the state of the game
         init();
-        score = 0;
-        line = 0;
-        level = 0;
         //The pieces
         newPiece();
 
@@ -78,6 +71,7 @@ public class gameBoard extends JPanel{
         }.start();
 
     }
+
 
 
     public boolean isFilled(int x, int y){
@@ -102,6 +96,8 @@ public class gameBoard extends JPanel{
             fill[origin.y][origin.x] = true;
             fill[oldY][origin.x] = false;
         }
+        else
+            newPiece();
     }
 
     // need a way to remove a row of tetris pieces
