@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.JPanel;
 import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class gameBoard extends JPanel{
     // the tile size of each grid block
@@ -13,6 +15,7 @@ public class gameBoard extends JPanel{
     //2D array for the colors of the board
     private Color[][] color;
     //2D array of booleans for each tile
+    private Color blockColor;
     private boolean[][] fill;
     //a coordinate of where the origin of the piece is
     private Point origin;
@@ -29,6 +32,7 @@ public class gameBoard extends JPanel{
                 }
             }
         }
+
 
         fill = new boolean[rows - 1][columns - 2];
     }
@@ -57,6 +61,9 @@ public class gameBoard extends JPanel{
         init();
         //The pieces
         newPiece();
+        blockColor = Color.RED;
+        this.addKeyListener(new input_1());
+        
 
         //Moves the pieces down every second
         new Thread() {
@@ -70,6 +77,8 @@ public class gameBoard extends JPanel{
                 }
             }
         }.start();
+
+
 
     }
 
@@ -109,6 +118,10 @@ public class gameBoard extends JPanel{
         }
     }
 
+    public void moveRight(){
+        origin.x++;
+    }
+
     // need a way to remove a row of tetris pieces
     public void removeRow(){
     }
@@ -118,6 +131,47 @@ public class gameBoard extends JPanel{
     }
 
 
+    private class input_1 implements KeyListener
+    {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            return;
+
+        }
+
+        public void keyPressed(KeyEvent e){
+            // New key press
+            //int  key = e.getKeyCode();
+            //right arrow key pressed
+            System.out.println("pressed");
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                System.out.println("right");
+                moveRight();
+            }
+            //left arrow key pressed
+            else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                //TO DO
+            }
+            //down arrow key pressed
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                //TO DO
+            }
+            //up arrow key pressed
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                //TO DO
+            }
+
+        }
+
+        /*public void init() {
+            gameBoard.addKeyListener(this);
+        }*/
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            return;
+        }
+    }
 
 
 }
