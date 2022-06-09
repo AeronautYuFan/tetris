@@ -1,12 +1,15 @@
 import java.awt.*;
-
-public class Block {
+import javax.swing.JPanel;
+public class Block extends JPanel {
     private Point origin;
 
     private Color realColor;
 
     public Block(int x, int y) {
         origin = new Point(x, y);
+        realColor = Color.RED;
+        Source.setFillValue(y, x, true);
+
     }
 
     public int getOriginX() { return origin.x; }
@@ -17,16 +20,9 @@ public class Block {
 
     public void setOriginY(int y) { origin.y = y; }
 
-    public Color getColor() { return realColor; }
+    public Color getRealColor() { return realColor; }
 
-    public void setColor(Color c) { realColor = c; }
-
-    public void drawPiece(Graphics g){
-        g.setColor(Color.RED);
-        g.fillRect(origin.x*Source.TILESIZE, origin.y*Source.TILESIZE,Source.TILESIZE-1, Source.TILESIZE-1);
-    }
+    public void setRealColor(Color c) { realColor = c; }
     
-
-
 
 }
