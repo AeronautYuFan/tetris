@@ -5,20 +5,50 @@ import java.awt.event.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class gameBoard extends JPanel{
+public class gameBoard extends JPanel   {
     // the tile size of each grid block
-    private final int tileSize = 21;
+    private final int tileSize = Source.TILESIZE;
     // # of rows
-    private final int columns = 14;
+    private final int columns = Source.COLUMNS;
     // # of columns
-    private final int rows = 21;
+    private final int rows = Source.ROWS;
     //2D array for the colors of the board
     private Color[][] color;
     //2D array of booleans for each tile
-    private Color blockColor;
-    private boolean[][] fill;
-    //a coordinate of where the origin of the piece is
-    private Point origin;
+
+    public gameBoard(){
+        //sets the dimensions of the board
+        setPreferredSize(new Dimension(columns*tileSize, rows*tileSize));
+        //initialize the state of the game
+        init();
+        //The pieces
+        Block a = new Block(6, 0);
+
+        this.addKeyListener(new input_1());
+
+        //Moves the pieces down every second
+        /*
+        new Thread() {
+            @Override public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(850);
+                        moveDown();
+                        //repaint();
+                    } catch ( InterruptedException e ) {}
+                }
+            }
+        }.start();
+
+*/
+    }
+
+    public void setColor(int x, int y, Color c) {
+        color[y][x] = c;
+    }
+
+
+
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
@@ -51,75 +81,41 @@ public class gameBoard extends JPanel{
         // Draws the falling piece
         drawPiece(g);
 
-
     }
-
-    public gameBoard(){
-        //sets the dimensions of the board
-        setPreferredSize(new Dimension(columns*tileSize, rows*tileSize));
-        //initialize the state of the game
-        init();
-        //The pieces
-        newPiece();
-        blockColor = Color.RED;
-        this.addKeyListener(new input_1());
-        
-
-        //Moves the pieces down every second
-        new Thread() {
-            @Override public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(850);
-                        moveDown();
-                        repaint();
-                    } catch ( InterruptedException e ) {}
-                }
-            }
-        }.start();
-
-
-
-    }
-
-    public boolean isFilled(int x, int y){
-        return(fill[y][x]);
-    }
-
-    // Creates a new piece at the origin. Need to randomize piece type
-    public void newPiece(){
-        origin = new Point(6, 0);
-        fill[0][6] = true;
-    }
-
-    // Draws the piece on the board. Need to randomize color
-    public void drawPiece(Graphics g){
+    public void drawPiece(Graphics g, Block b){
         g.setColor(Color.RED);
-        g.fillRect(origin.x*tileSize, origin.y*tileSize,tileSize-1, tileSize-1);
+        g.fillRect(b.getOriginX()*Source.TILESIZE, b.getOriginY()*Source.TILESIZE,Source.TILESIZE-1, Source.TILESIZE-1);
     }
 
-    // Fixes the block in its place (Makes the block a part of the background
-    public void setPiece(){
-        color[origin.x][origin.y] = Color.RED;
+
+    public void setPiece(Block b){
+        Tetris.alterColor(origin.x, origin.y);
     }
 
-    // Moves the current block down 1 grid until it collides with the border of another block
     public void moveDown(){
 
-        if(origin.y < rows - 2 && fill[origin.y + 1][origin.x] == false ) {
+        if(origin.y < Source.ROWS - 2 && Source.FILL[origin.y + 1][origin.x] == false ) {
             int oldY = origin.y;
             origin.y+=1;
-            fill[origin.y][origin.x] = true;
-            fill[oldY][origin.x] = false;
+            repaint();
         }
         else{
             setPiece();
-            newPiece();
+
         }
     }
 
+
+    // Creates a new piece at the origin. Need to randomize piece type
+
+
+    // Draws the piece on the board. Need to randomize color
+
+
+
     public void moveRight(){
         origin.x++;
+        repaint();
     }
 
     // need a way to remove a row of tetris pieces
@@ -131,7 +127,7 @@ public class gameBoard extends JPanel{
     }
 
 
-    private class input_1 implements KeyListener
+    private class input_1 implements ActionListener, KeyListener
     {
         @Override
         public void keyTyped(KeyEvent e) {
@@ -160,6 +156,7 @@ public class gameBoard extends JPanel{
             if (e.getKeyCode() == KeyEvent.VK_UP) {
                 //TO DO
             }
+            repaint();
 
         }
 
@@ -169,6 +166,11 @@ public class gameBoard extends JPanel{
 
         @Override
         public void keyReleased(KeyEvent e) {
+            return;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
             return;
         }
     }
