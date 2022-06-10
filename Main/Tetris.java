@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Tetris extends JFrame {
-
     private gameBoard board;
     public Tetris(){
         board = new gameBoard();
@@ -14,15 +13,10 @@ public class Tetris extends JFrame {
         setLocationRelativeTo(null);
         setResizable (true);
         setVisible (true);
-
     }
 
     public static void main(String[] args) {
         new Tetris();
-    }
-
-    public void alterColor(int x, int y, Color c) {
-        board.setColor(x, y, c);
     }
 
 }
