@@ -4,12 +4,10 @@ import javax.swing.*;
 public class scoreBoard extends JPanel {
     // keeps track of the score of the player
 
-    private Score realScore;
     private JLabel scoreBox;
 
     public scoreBoard() {
-        realScore = new Score();
-        scoreBox = new JLabel("Score: " + realScore.getPoints());
+        scoreBox = new JLabel("Score: " + Source.SCORE);
         //scoreBox.setVisible(true);
 
         this.add(scoreBox);
