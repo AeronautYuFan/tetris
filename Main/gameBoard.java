@@ -128,12 +128,12 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         //right arrow key pressed
         if (key == KeyEvent.VK_RIGHT) {
             if(!collisionFloor() && !collisionRightWall())
-                tetrisBlock.moveRight();
+                tetrisBlock.moveHorizontal(1);
         }
         //left arrow key pressed
         if (key == KeyEvent.VK_LEFT) {
             if(!collisionFloor() && !collisionLeftWall())
-                tetrisBlock.moveLeft();
+                tetrisBlock.moveHorizontal(-1);
         }
         //down arrow key pressed
         if (key == KeyEvent.VK_DOWN) {
