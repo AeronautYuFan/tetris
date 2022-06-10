@@ -9,7 +9,10 @@ public class Block extends JPanel{
     private Color realColor;
     public Block() {
         origin = new Point(6, 0);
-        realColor = Color.RED;
+        realColor = new Color(
+                (int) (Math.random() * 255),
+                (int) (Math.random() * 255),
+                (int) (Math.random() * 255));
     }
 
     public int getOriginX() { return origin.x; }
@@ -25,7 +28,7 @@ public class Block extends JPanel{
     public void setRealColor(Color c) { realColor = c; }
 
     public void drawPiece(Graphics g){
-        g.setColor(Color.RED);
+        g.setColor(realColor);
         g.fillRect(origin.x*Source.TILESIZE, origin.y*Source.TILESIZE,Source.TILESIZE-1, Source.TILESIZE-1);
     }
 
