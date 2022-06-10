@@ -1,11 +1,11 @@
 import java.awt.*;
-import javax.swing.*;
-import javax.swing.JPanel;
-import java.awt.event.*;
-import java.awt.event.KeyAdapter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JPanel;
 
-public class gameBoard extends JPanel   {
+public class gameBoard extends JPanel implements ActionListener, KeyListener {
     // the tile size of each grid block
     private final int tileSize = Source.TILESIZE;
     // # of rows
@@ -14,7 +14,8 @@ public class gameBoard extends JPanel   {
     private final int rows = Source.ROWS;
     //2D array for the colors of the board
     private Color[][] color;
-    //2D array of booleans for each tile
+    //Block object
+    private Block tetrisBlock;
 
     public gameBoard(){
         //sets the dimensions of the board
@@ -22,33 +23,39 @@ public class gameBoard extends JPanel   {
         //initialize the state of the game
         init();
         //The pieces
-        Block a = new Block(6, 0);
-
-        this.addKeyListener(new input_1());
+        tetrisBlock = new Block();
+        addKeyListener(this);
+        setFocusable(true);
 
         //Moves the pieces down every second
-        /*
         new Thread() {
             @Override public void run() {
                 while (true) {
                     try {
                         Thread.sleep(850);
-                        moveDown();
-                        //repaint();
+                        if(!collisionFloor()) {
+                            tetrisBlock.moveDown();
+                            repaint();
+                        }
+                        else {
+                            setPiece();
+                            Source.setFillValue(tetrisBlock.getOriginY(), tetrisBlock.getOriginX(), true);
+                            tetrisBlock = new Block();
+                        }
                     } catch ( InterruptedException e ) {}
                 }
             }
         }.start();
 
-*/
     }
 
     public void setColor(int x, int y, Color c) {
-        color[y][x] = c;
+        color[x][y] = c;
     }
 
-
-
+    public Color getColor(int x, int y) {
+        return color[x][y];
+    }
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
@@ -62,12 +69,9 @@ public class gameBoard extends JPanel   {
                 }
             }
         }
-
-
-        fill = new boolean[rows - 1][columns - 2];
     }
 
-    //Uses the init() method to setup the background
+    //Uses the init() method to set up the background
     @Override
     public void paintComponent(Graphics g) {
         // Paint the well
@@ -78,44 +82,32 @@ public class gameBoard extends JPanel   {
                 g.fillRect(tileSize * i, tileSize * j, tileSize - 1, tileSize - 1);
             }
         }
-        // Draws the falling piece
-        drawPiece(g);
-
+        //Draws the piece
+        tetrisBlock.drawPiece(g);
     }
-    public void drawPiece(Graphics g, Block b){
-        g.setColor(Color.RED);
-        g.fillRect(b.getOriginX()*Source.TILESIZE, b.getOriginY()*Source.TILESIZE,Source.TILESIZE-1, Source.TILESIZE-1);
+    public void setPiece(){
+        color[tetrisBlock.getOriginX()][tetrisBlock.getOriginY()] = tetrisBlock.getRealColor();
     }
 
-
-    public void setPiece(Block b){
-        Tetris.alterColor(origin.x, origin.y);
+    public boolean collisionFloor(){
+        if(color[tetrisBlock.getOriginX()][tetrisBlock.getOriginY() + 1] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginY() + 1][tetrisBlock.getOriginX()]))
+            return true;
+        else
+            return false;
     }
 
-    public void moveDown(){
-
-        if(origin.y < Source.ROWS - 2 && Source.FILL[origin.y + 1][origin.x] == false ) {
-            int oldY = origin.y;
-            origin.y+=1;
-            repaint();
-        }
-        else{
-            setPiece();
-
-        }
+    public boolean collisionRightWall(){
+        if(color[tetrisBlock.getOriginX() + 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginY()][tetrisBlock.getOriginX() + 1]))
+            return true;
+        else
+            return false;
     }
 
-
-    // Creates a new piece at the origin. Need to randomize piece type
-
-
-    // Draws the piece on the board. Need to randomize color
-
-
-
-    public void moveRight(){
-        origin.x++;
-        repaint();
+    public boolean collisionLeftWall(){
+        if(color[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginY()][tetrisBlock.getOriginX() - 1]))
+            return true;
+        else
+            return false;
     }
 
     // need a way to remove a row of tetris pieces
@@ -126,54 +118,39 @@ public class gameBoard extends JPanel   {
     public void clearRow(){
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
-    private class input_1 implements ActionListener, KeyListener
-    {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            return;
+    public void keyPressed(KeyEvent e){
+        // New key press
+        int  key = e.getKeyCode();
 
+        //right arrow key pressed
+        if (key == KeyEvent.VK_RIGHT) {
+            if(!collisionFloor() && !collisionRightWall())
+                tetrisBlock.moveRight();
         }
-
-        public void keyPressed(KeyEvent e){
-            // New key press
-            //int  key = e.getKeyCode();
-            //right arrow key pressed
-            System.out.println("pressed");
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                System.out.println("right");
-                moveRight();
-            }
-            //left arrow key pressed
-            else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                //TO DO
-            }
-            //down arrow key pressed
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                //TO DO
-            }
-            //up arrow key pressed
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
-                //TO DO
-            }
-            repaint();
-
+        //left arrow key pressed
+        if (key == KeyEvent.VK_LEFT) {
+            if(!collisionFloor() && !collisionLeftWall())
+                tetrisBlock.moveLeft();
         }
-
-        /*public void init() {
-            gameBoard.addKeyListener(this);
-        }*/
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            return;
+        //down arrow key pressed
+        if (key == KeyEvent.VK_DOWN) {
+            //TO DO
         }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            return;
+        //up arrow key pressed
+        if (key == KeyEvent.VK_UP) {
+            //TO DO
         }
+        repaint();
     }
+    @Override
+    public void keyReleased(KeyEvent e) {}
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
+    }
 
 }
