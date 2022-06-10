@@ -1,15 +1,7 @@
 import java.awt.*;
-import javax.swing.*;
 import javax.swing.JPanel;
-import java.awt.event.*;
 
 public class scoreBoard extends JPanel {
-    // the tile size of each grid block
-    private final int tileSize = 21;
-    // # of rows
-    private final int columns = 7;
-    // # of columns
-    private final int rows = 21;
     // keeps track of the score of the player
     private int score;
     private int line;
