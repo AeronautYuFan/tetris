@@ -1,24 +1,23 @@
 public class Score {
-    private int score;
+    private int points;
     private int completedRows;
-    public void nScore(){
-        score+=12;
+    
+    public Score() {
+        points = 0;
+        completedRows = 0;
     }
-    public void rowFilled (){
-        completedRows++;
-        nScore();
-    }
+    
 
-    public int getScore() {
-        return score;
+    public int getPoints() {
+        return points;
     }
 
     public int getCompletedRows() {
         return completedRows;
     }
 
-    public void setScore(int s) {
-        score = s;
+    public void setPoints(int s) {
+        points = s;
     }
 
     public void setCompletedRows(int r) {
