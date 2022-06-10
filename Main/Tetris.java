@@ -3,11 +3,13 @@ import java.awt.*;
 
 public class Tetris extends JFrame {
     private gameBoard board;
+    private scoreBoard sBoard;
     public Tetris(){
         board = new gameBoard();
+        sBoard = new scoreBoard();
 
         add(board, BorderLayout.WEST);
-        add(new scoreBoard(), BorderLayout.EAST);
+        add(sBoard, BorderLayout.EAST);
         setDefaultCloseOperation (EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
@@ -18,5 +20,7 @@ public class Tetris extends JFrame {
     public static void main(String[] args) {
         new Tetris();
     }
+
+
 
 }
