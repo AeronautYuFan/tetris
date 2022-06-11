@@ -12,7 +12,9 @@ public class Tetris extends JFrame {
         board = new gameBoard();
         sBoard = new scoreBoard();
         bigRedButton = new JButton("Restart");
+        bigRedButton.setLayout(null);
         bigRedButton.addActionListener(new restartListener());
+        bigRedButton.setBounds(160, 401, 30, 30); // 454
         sBoard.add(bigRedButton);
         add(board, BorderLayout.WEST);
         add(sBoard, BorderLayout.EAST);

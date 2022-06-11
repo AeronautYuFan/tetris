@@ -21,7 +21,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
 
     public gameBoard(){
         //sets the dimensions of the board
-        setPreferredSize(new Dimension(columns*tileSize, rows*tileSize));
+        setPreferredSize(new Dimension(Source.COLUMNS*Source.TILESIZE, Source.ROWS*Source.TILESIZE));
         //initialize the state of the game
         init();
         //The pieces
