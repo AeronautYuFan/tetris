@@ -37,13 +37,8 @@ public class Block extends JPanel{
         repaint();
     }
 
-    public void moveRight(){
-        origin.x++;
-        repaint();
-    }
-
-    public void moveLeft(){
-        origin.x--;
+    public void moveHorizontal(int x){
+        origin.x+= x;
         repaint();
     }
 
