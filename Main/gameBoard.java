@@ -17,6 +17,8 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
     //Block object
     private Block tetrisBlock;
 
+    //private Thread timer;
+
     public gameBoard(){
         //sets the dimensions of the board
         setPreferredSize(new Dimension(columns*tileSize, rows*tileSize));
@@ -28,24 +30,6 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         setFocusable(true);
 
         //Moves the pieces down every second
-        new Thread() {
-            @Override public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(850);
-                        if(!collisionFloor()) {
-                            tetrisBlock.moveDown();
-                            repaint();
-                        }
-                        else {
-                            setPiece();
-                            Source.setFillValue(tetrisBlock.getOriginY(), tetrisBlock.getOriginX(), true);
-                            tetrisBlock = new Block();
-                        }
-                    } catch ( InterruptedException e ) {}
-                }
-            }
-        }.start();
 
     }
 
@@ -56,6 +40,10 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
     public Color getColor(int x, int y) {
         return color[x][y];
     }
+
+    public Block getGamePiece() { return tetrisBlock; }
+
+    public void setGamePiece(Block b) { tetrisBlock = b; }
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
@@ -85,7 +73,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         //Draws the piece
         tetrisBlock.drawPiece(g);
     }
-    public void setPiece(){
+    public void colorPiece(){
         color[tetrisBlock.getOriginX()][tetrisBlock.getOriginY()] = tetrisBlock.getRealColor();
     }
 
@@ -137,11 +125,8 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         }
         //down arrow key pressed
         if (key == KeyEvent.VK_DOWN) {
-            //TO DO
-        }
-        //up arrow key pressed
-        if (key == KeyEvent.VK_UP) {
-            //TO DO
+            if(!collisionFloor())
+                tetrisBlock.moveDown();
         }
         repaint();
     }
