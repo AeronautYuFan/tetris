@@ -15,6 +15,11 @@ public class Block extends JPanel{
                 (int) (Math.random() * 255));
     }
 
+    public Block(Point o, Color c) {
+        origin = o;
+        realColor = c;
+    }
+
     public int getOriginX() { return origin.x; }
 
     public int getOriginY() { return origin.y; }

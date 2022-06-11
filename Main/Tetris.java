@@ -1,30 +1,51 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event;
+import java.awt.event.*;
 
 public class Tetris extends JFrame {
     private gameBoard board;
     private scoreBoard sBoard;
     private JButton bigRedButton;
+    private Timer gameTimer;
     
-    public Tetris(){
+    public Tetris() {
         board = new gameBoard();
         sBoard = new scoreBoard();
         bigRedButton = new JButton("Restart");
-        bigRedButton.addActionListener(new restartListener() );
-
+        bigRedButton.addActionListener(new restartListener());
+        sBoard.add(bigRedButton);
         add(board, BorderLayout.WEST);
         add(sBoard, BorderLayout.EAST);
-        setDefaultCloseOperation (EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
-        setResizable (true);
-        setVisible (true);
+        setResizable(true);
+        setVisible(true);
+
+        gameTimer = new Timer(850, new timerListener() );
+        gameTimer.start();
+
+
     }
-    
+
+    private class timerListener implements ActionListener {
+        public void actionPerformed (ActionEvent event) {
+            if (!board.collisionFloor()) {
+                board.getGamePiece().moveDown();
+                repaint();
+            } else {
+                board.colorPiece();
+                Source.setFillValue(board.getGamePiece().getOriginY(), board.getGamePiece().getOriginX(), true);
+                board.setGamePiece(new Block());
+            }
+        }
+    }
+
+
     private class restartListener implements ActionListener {
         public void actionPerformed (ActionEvent event) {
-            refresh();
+            Source.restart();
+
         }
     }
 
@@ -35,7 +56,6 @@ public class Tetris extends JFrame {
     public void refresh() {
         board = new gameBoard();
         sBoard = new scoreBoard();
-        Source.restart();
         
         add(board, BorderLayout.WEST);
         add(sBoard, BorderLayout.EAST);
