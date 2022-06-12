@@ -33,6 +33,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
 
     }
 
+
     public void setColor(int x, int y, Color c) {
         color[x][y] = c;
     }
@@ -99,11 +100,32 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
     }
 
     // need a way to remove a row of tetris pieces
-    public void removeRow(){
+    public void removeRow(int row){
+        for(int i = row; i > 1; i--) {
+            for(int c = 1; c < Source.COLUMNS - 3; c++) {
+                color[i][c] = color[i - 1][c];
+                Source.setFillValue(i, c, Source.FILL[i - 1][c]);
+            }
+        }
+        repaint();
     }
 
     // checks if there is a filled row, if so, the method removeRow() is used and the score is increased
-    public void clearRow(){
+    public void fullRowCheck(){
+        for(int i = Source.ROWS - 2; i > 1; i--) {
+            boolean temp = true;
+            for(int c = 1; c < Source.COLUMNS - 2; c++) {
+                if(Source.FILL[i - 1][c] == true) {
+                    temp = false;
+                }
+                if(temp) {
+                    System.out.println("removeRow");
+                    removeRow(i);
+                    Source.addSCORE(12);
+                    return;
+                }
+            }
+        }
     }
 
     @Override
