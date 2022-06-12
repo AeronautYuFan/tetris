@@ -39,7 +39,7 @@ public class Tetris extends JFrame {
                 repaint();
             } else {
                 board.colorPiece();
-                Source.setFillValue(board.getGamePiece().getOriginY(), board.getGamePiece().getOriginX(), true);
+                Source.setFillValue(board.getGamePiece().getOriginX(), board.getGamePiece().getOriginY(), true);
                 board.setGamePiece(new Block());
             }
         }
@@ -70,4 +70,4 @@ public class Tetris extends JFrame {
         setVisible (true);
     }
     
-} // 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
+} // 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
