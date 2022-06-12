@@ -32,6 +32,8 @@ public class Tetris extends JFrame {
 
     private class timerListener implements ActionListener {
         public void actionPerformed (ActionEvent event) {
+            board.fullRowCheck();
+
             if (!board.collisionFloor()) {
                 board.getGamePiece().moveDown();
                 repaint();
@@ -68,4 +70,4 @@ public class Tetris extends JFrame {
         setVisible (true);
     }
     
-}
+} // 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
