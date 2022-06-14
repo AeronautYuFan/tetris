@@ -125,8 +125,10 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
             }
             temp = true;
         }
-        removeRow(tempRow);
-        Source.addSCORE(12);
+        if(tempRow > 0) {
+            removeRow(tempRow);
+            Source.addSCORE(12);
+        }
     }
 
     @Override
