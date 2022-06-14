@@ -33,6 +33,7 @@ public class Tetris extends JFrame {
     private class timerListener implements ActionListener {
         public void actionPerformed (ActionEvent event) {
             board.fullRowCheck();
+            sBoard.updateScore();
 
             if (!board.collisionFloor()) {
                 board.getGamePiece().moveDown();
