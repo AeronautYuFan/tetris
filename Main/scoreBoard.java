@@ -8,20 +8,13 @@ public class scoreBoard extends JPanel {
 
     public scoreBoard() {
         scoreBox = new JLabel("Score: " + Source.SCORE);
-        //scoreBox.setVisible(true);
-
         this.add(scoreBox);
-
         //sets the dimensions of the board
         setPreferredSize(new Dimension(200, 441));
         setBackground(Color.LIGHT_GRAY);
     }
 
-    @Override // JTextField
-    public void paintComponents(Graphics g) {
-
+    public void updateScore(){
+        scoreBox.setText("Score: " + Source.SCORE);
     }
-
-
-
 }
