@@ -7,7 +7,7 @@ public class Tetris extends JFrame {
     private scoreBoard sBoard;
     private JButton bigRedButton;
     private Timer gameTimer;
-    
+
     public Tetris() {
         board = new gameBoard();
         sBoard = new scoreBoard();
@@ -39,7 +39,7 @@ public class Tetris extends JFrame {
                 repaint();
             } else {
                 board.colorPiece();
-                Source.setFillValue(board.getGamePiece().getOriginX(), board.getGamePiece().getOriginY(), true);
+                Source.setFillValue(board.getGamePiece().getOriginX() - 1, board.getGamePiece().getOriginY(), true);
                 board.setGamePiece(new Block());
             }
         }
@@ -60,7 +60,7 @@ public class Tetris extends JFrame {
     public void refresh() {
         board = new gameBoard();
         sBoard = new scoreBoard();
-        
+
         add(board, BorderLayout.WEST);
         add(sBoard, BorderLayout.EAST);
         setDefaultCloseOperation (EXIT_ON_CLOSE);
@@ -69,5 +69,5 @@ public class Tetris extends JFrame {
         setResizable (true);
         setVisible (true);
     }
-    
+
 } // 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
