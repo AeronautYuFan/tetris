@@ -79,21 +79,21 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
     }
 
     public boolean collisionFloor(){
-        if(color[tetrisBlock.getOriginX()][tetrisBlock.getOriginY() + 1] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX() + 1][tetrisBlock.getOriginY()]))
+        if(color[tetrisBlock.getOriginX()][tetrisBlock.getOriginY() + 1] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()]))
             return true;
         else
             return false;
     }
 
     public boolean collisionRightWall(){
-        if(color[tetrisBlock.getOriginX() + 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX()][tetrisBlock.getOriginY() + 1]))
+        if(color[tetrisBlock.getOriginX() + 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()]))
             return true;
         else
             return false;
     }
 
     public boolean collisionLeftWall(){
-        if(color[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginY()][tetrisBlock.getOriginX() - 1]))
+        if(color[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()]))
             return true;
         else
             return false;
@@ -102,7 +102,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
     // need a way to remove a row of tetris pieces
     public void removeRow(int row){
         for(int r = row; r > 1; r--) {
-            for(int c = 1; c < Source.COLUMNS - 2; c++) {
+            for(int c = 1; c < color.length - 1; c++) {
                 color[c][r] = color[c][r - 1];
                 Source.setFillValue(r, Source.FILL[c][r - 1]);
             }
@@ -112,19 +112,23 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
 
     // checks if there is a filled row, if so, the method removeRow() is used and the score is increased
     public void fullRowCheck(){
+        boolean temp = false;
+
         for(int r = Source.ROWS - 2; r > 1; r--) {
-            boolean temp = true;
             for(int c = 0; c < Source.COLUMNS - 2; c++) {
                 if(Source.FILL[c][r] == true) {
-                    temp = false;
+                    temp = true;
                 }
-                if(temp) {
-                    removeRow(r);
-                    Source.addSCORE(12);
+                else
                     return;
-                }
+            }
+            if(temp) {
+                removeRow(r);
+                Source.addSCORE(12);
+                return;
             }
         }
+        return;
     }
 
     @Override
