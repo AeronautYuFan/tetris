@@ -23,7 +23,7 @@ public class Block extends JPanel{
     public int getOriginX() { return origin.x; }
 
     public int getOriginY() { return origin.y; }
-    
+
     public void setPoint(Point p) {
         origin = p;
     }
@@ -36,7 +36,7 @@ public class Block extends JPanel{
 
     public void setRealColor(Color c) { realColor = c; }
 
-    public void drawPiece(Graphics g){
+    public void drawBlock(Graphics g){
         g.setColor(realColor);
         g.fillRect(origin.x*Source.TILESIZE, origin.y*Source.TILESIZE,Source.TILESIZE-1, Source.TILESIZE-1);
     }
