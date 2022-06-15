@@ -23,6 +23,10 @@ public class Block extends JPanel{
     public int getOriginX() { return origin.x; }
 
     public int getOriginY() { return origin.y; }
+    
+    public void setPoint(Point p) {
+        origin = p;
+    }
 
     public void setOriginX(int x) { origin.x = x; }
 
