@@ -15,7 +15,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
     //2D array for the colors of the board
     private Color[][] color;
     //Block object
-    private Block tetrisBlock;
+    private Piece tetrisBlock;
 
     //private Thread timer;
 
@@ -25,7 +25,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         //initialize the state of the game
         init();
         //The pieces
-        tetrisBlock = new Block();
+        tetrisBlock = new Piece(5);
         addKeyListener(this);
         setFocusable(true);
 
@@ -42,9 +42,9 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         return color[x][y];
     }
 
-    public Block getGamePiece() { return tetrisBlock; }
+    public Piece getGamePiece() { return tetrisBlock; }
 
-    public void setGamePiece(Block b) { tetrisBlock = b; }
+    public void setGamePiece(Piece p) { tetrisBlock = p; }
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
