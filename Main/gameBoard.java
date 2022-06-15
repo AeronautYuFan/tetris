@@ -104,7 +104,6 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         for(int r = row; r > 1; r--) {
             for(int c = 1; c < color.length - 1; c++) {
                 color[c][r] = color[c][r - 1];
-                //Source.setFillValue(r, Source.FILL[c - 1][r - 1]);
                 Source.setFillValue(c-1, r, Source.FILL[c - 1][r - 1]);
             }
         }
