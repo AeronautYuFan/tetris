@@ -75,28 +75,74 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         tetrisBlock.drawPiece(g);
     }
     public void colorPiece(){
-        color[tetrisBlock.getOriginX()][tetrisBlock.getOriginY()] = tetrisBlock.getRealColor();
+        Block block1 = tetrisBlock.getBlock1();
+        Block block2 = tetrisBlock.getBlock2();
+        Block block3 = tetrisBlock.getBlock3();
+        Block block4 = tetrisBlock.getBlock4();
+
+        color[block1.getOriginX()][block1.getOriginY()] = tetrisBlock.getPieceColor();
+        color[block2.getOriginX()][block2.getOriginY()] = tetrisBlock.getPieceColor();
+        color[block3.getOriginX()][block3.getOriginY()] = tetrisBlock.getPieceColor();
+        color[block4.getOriginX()][block4.getOriginY()] = tetrisBlock.getPieceColor();
     }
 
     public boolean collisionFloor(){
-        if(color[tetrisBlock.getOriginX()][tetrisBlock.getOriginY() + 1] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY() + 1]))
-            return true;
-        else
-            return false;
+        Block block1 = tetrisBlock.getBlock1();
+        Block block2 = tetrisBlock.getBlock2();
+        Block block3 = tetrisBlock.getBlock3();
+        Block block4 = tetrisBlock.getBlock4();
+
+        boolean result = false;
+
+        if (color[block1.getOriginX()][block1.getOriginY() + 1] == Color.GRAY ||
+                ((Source.FILL[block1.getOriginX() - 1][block1.getOriginY() + 1]) &&
+                        !(block2.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) )
+                        )
+        ) result = true;
+
+        if (color[block2.getOriginX()][block2.getOriginY() + 1] == Color.GRAY ||
+                ((Source.FILL[block2.getOriginX() - 1][block2.getOriginY() + 1]) &&
+                        !(block1.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block3.getOriginX()][block3.getOriginY() + 1] == Color.GRAY ||
+                ((Source.FILL[block3.getOriginX() - 1][block3.getOriginY() + 1]) &&
+                        !(block1.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) ) &&
+                        !(block2.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block4.getOriginX()][block4.getOriginY() + 1] == Color.GRAY ||
+                ((Source.FILL[block4.getOriginX() - 1][block4.getOriginY() + 1]) &&
+                        !(block1.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) ) &&
+                        !(block2.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        return result;
     }
 
-    public boolean collisionRightWall(){
+    public boolean collisionRightWall(){ /*
         if(color[tetrisBlock.getOriginX() + 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX()][tetrisBlock.getOriginY()]))
             return true;
-        else
+        else */
             return false;
+
     }
 
-    public boolean collisionLeftWall(){
+    public boolean collisionLeftWall(){ /*
         if(color[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX() - 2][tetrisBlock.getOriginY()]))
             return true;
-        else
+        else */
             return false;
+
     }
 
     // need a way to remove a row of tetris pieces
@@ -139,16 +185,19 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         int  key = e.getKeyCode();
 
         //right arrow key pressed
+
         if (key == KeyEvent.VK_RIGHT) {
             if(!collisionFloor() && !collisionRightWall())
-                tetrisBlock.moveHorizontal(1);
+                tetrisBlock.moveLeftRight(1);
         }
         //left arrow key pressed
         if (key == KeyEvent.VK_LEFT) {
             if(!collisionFloor() && !collisionLeftWall())
-                tetrisBlock.moveHorizontal(-1);
+                tetrisBlock.moveLeftRight(-1);
         }
         //down arrow key pressed
+
+
         if (key == KeyEvent.VK_DOWN) {
             if(!collisionFloor())
                 tetrisBlock.moveDown();
