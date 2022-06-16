@@ -31,6 +31,8 @@ public class Tetris extends JFrame {
     }
 
     private class timerListener implements ActionListener {
+        Piece piece = board.getGamePiece();
+
         public void actionPerformed (ActionEvent event) {
             board.fullRowCheck();
             sBoard.updateScore();
@@ -40,8 +42,11 @@ public class Tetris extends JFrame {
                 repaint();
             } else {
                 board.colorPiece();
-                Source.setFillValue(board.getGamePiece().getOriginX() - 1, board.getGamePiece().getOriginY(), true);
-                board.setGamePiece(new Block());
+                Source.setFillValue(piece.getBlock1().getOriginX() - 1, piece.getBlock1().getOriginX(), true);
+                Source.setFillValue(piece.getBlock2().getOriginX() - 1, piece.getBlock2().getOriginX(), true);
+                Source.setFillValue(piece.getBlock3().getOriginX() - 1, piece.getBlock3().getOriginX(), true);
+                Source.setFillValue(piece.getBlock4().getOriginX() - 1, piece.getBlock4().getOriginX(), true);
+                board.setGamePiece(new Piece((int) (Math.random() * 7) ));
             }
         }
     }
