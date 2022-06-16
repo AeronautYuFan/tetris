@@ -65,6 +65,27 @@ public class Piece {
         block4.drawBlock(g);
     }
 
+    public Block getBlock1() { return block1; }
+    public Block getBlock2() { return block2; }
+    public Block getBlock3() { return block3; }
+    public Block getBlock4() { return block4; }
+
+    public Color getPieceColor() { return pieceColor; }
+
+    public void moveLeftRight(int x) {
+        block1.moveHorizontal(x);
+        block2.moveHorizontal(x);
+        block3.moveHorizontal(x);
+        block4.moveHorizontal(x);
+    }
+
+    public void moveDown() {
+        block1.moveDown();
+        block2.moveDown();
+        block3.moveDown();
+        block4.moveDown();
+    }
+
 
 }
 
