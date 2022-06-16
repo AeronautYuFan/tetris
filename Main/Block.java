@@ -24,6 +24,12 @@ public class Block extends JPanel{
 
     public int getOriginY() { return origin.y; }
 
+    public Point getPoint() { return origin; }
+
+    public boolean checkPoint(int x, int y) {
+        return (origin.x == x && origin.y == y);
+    }
+
     public void setPoint(Point p) {
         origin = p;
     }
