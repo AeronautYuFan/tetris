@@ -38,6 +38,11 @@ public class Block extends JPanel{
 
     public void setOriginY(int y) { origin.y = y; }
 
+    public void setOriginXY(int x, int y){
+        origin.x = x;
+        origin.y = y;
+    }
+
     public Color getRealColor() { return realColor; }
 
     public void setRealColor(Color c) { realColor = c; }
