@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class Piece {
     private int type;
+    private int rotation;
 
     private Point[] blockSpots;
 
@@ -23,15 +24,16 @@ public class Piece {
     */
     public Piece(int pieceType) {
         type = pieceType;
+        rotation = 0;
 
         if (type == 2) {
             blockSpots = new Point[]{new Point(5, 0), new Point(6, 0), new Point(7, 0), new Point(6, 1)};
         }
         else if (type == 3) {
-            blockSpots = new Point[]{new Point(5, 0), new Point(5, 1), new Point(6, 1), new Point(7, 1)};
+            blockSpots = new Point[]{new Point(5, 1), new Point(5, 0), new Point(6, 0), new Point(7, 0)};
         }
         else if (type == 4) {
-            blockSpots = new Point[]{new Point(5, 1), new Point(5, 0), new Point(6, 0), new Point(7, 0)};
+            blockSpots = new Point[]{new Point(5, 0), new Point(5, 1), new Point(6, 1), new Point(7, 1)};
         }
         else if (type == 5) {
             blockSpots = new Point[]{new Point(6, 0), new Point(6, 1), new Point(7, 1), new Point(7, 0)};
@@ -87,5 +89,167 @@ public class Piece {
         block2.moveDown();
         block3.moveDown();
         block4.moveDown();
+    }
+
+    public int getRotation(){
+        return rotation;
+    }
+
+    public void setRotation(int r){
+        rotation = r;
+    }
+
+    public void rotate(){
+        //Rotations for Piece 2
+        if(type == 2 && rotation == 0){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block4.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+        }
+        if(type == 2 && rotation == 1){
+            block1.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block4.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+        }
+        if(type == 2 && rotation == 2){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block4.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+        }
+        if(type == 2 && rotation == 3){
+            block1.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block4.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+        }
+        //Rotations for Piece 3
+        if(type == 3 && rotation == 0){
+            block1.setOriginXY(block3.getOriginX() - 1, block3.getOriginY() - 1);
+            block2.setOriginXY(block3.getOriginX(), block3.getOriginY() - 1);
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() + 1);
+        }
+        if(type == 3 && rotation == 1){
+            block1.setOriginXY(block3.getOriginX() + 1, block3.getOriginY() - 1);
+            block2.setOriginXY(block3.getOriginX() + 1, block3.getOriginY());
+            block4.setOriginXY(block3.getOriginX() - 1, block3.getOriginY());
+        }
+        if(type == 3 && rotation == 2){
+            block1.setOriginXY(block3.getOriginX() + 1, block3.getOriginY() + 1);
+            block2.setOriginXY(block3.getOriginX(), block3.getOriginY() + 1);
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() - 1);
+        }
+        if(type == 3 && rotation == 3){
+            block1.setOriginXY(block3.getOriginX() - 1, block3.getOriginY() + 1);
+            block2.setOriginXY(block3.getOriginX() - 1, block3.getOriginY());
+            block4.setOriginXY(block3.getOriginX() + 1, block3.getOriginY());
+        }
+        //Rotations for Piece 4
+        if(type == 4 && rotation == 0){
+            block1.setOriginXY(block3.getOriginX() + 1, block3.getOriginY() - 1);
+            block2.setOriginXY(block1.getOriginX() - 1, block1.getOriginY());
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() + 1);
+        }
+        if(type == 4 && rotation == 1){
+            block1.setOriginXY(block3.getOriginX() + 1, block3.getOriginY() + 1);
+            block2.setOriginXY(block1.getOriginX(), block1.getOriginY() - 1);
+            block4.setOriginXY(block3.getOriginX() - 1, block3.getOriginY());
+        }
+        if(type == 4 && rotation == 2){
+            block1.setOriginXY(block3.getOriginX() - 1, block3.getOriginY() + 1);
+            block2.setOriginXY(block1.getOriginX() + 1, block1.getOriginY());
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() - 1);
+        }
+        if(type == 4 && rotation == 3){
+            block1.setOriginXY(block3.getOriginX() - 1, block3.getOriginY() - 1);
+            block2.setOriginXY(block1.getOriginX(), block1.getOriginY() + 1);
+            block4.setOriginXY(block3.getOriginX() + 1, block3.getOriginY());
+        }
+        //Rotation for Piece 5
+        if(type == 5 && rotation == 0){
+            block1.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block4.setOriginXY(block3.getOriginX() + 1, block3.getOriginY());
+        }
+        if(type == 5 && rotation == 1){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block3.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() + 1);
+        }
+        if(type == 5 && rotation == 2){
+            block1.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block4.setOriginXY(block3.getOriginX() - 1, block3.getOriginY());
+        }
+        if(type == 5 && rotation == 3){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block3.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() - 1);
+        }
+        //Rotation for Piece 6
+        if(type == 6 && rotation == 0){
+            block1.setOriginXY(block3.getOriginX() + 1, block3.getOriginY() - 1);
+            block2.setOriginXY(block1.getOriginX(), block1.getOriginY() + 1);
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() + 1);
+        }
+        if(type == 6 && rotation == 1){
+            block1.setOriginXY(block3.getOriginX() + 1, block3.getOriginY() + 1);
+            block2.setOriginXY(block1.getOriginX() - 1, block1.getOriginY());
+            block4.setOriginXY(block3.getOriginX() - 1, block3.getOriginY());
+        }
+        if(type == 6 && rotation == 2){
+            block1.setOriginXY(block3.getOriginX() - 1, block3.getOriginY() + 1);
+            block2.setOriginXY(block1.getOriginX(), block1.getOriginY() - 1);
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() - 1);
+        }
+        if(type == 6 && rotation == 3){
+            block1.setOriginXY(block3.getOriginX() - 1, block3.getOriginY() - 1);
+            block2.setOriginXY(block1.getOriginX() + 1, block1.getOriginY());
+            block4.setOriginXY(block3.getOriginX() + 1, block3.getOriginY());
+        }
+        //Rotation for Piece 7
+        if(type == 7 && rotation == 0){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block3.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() + 1);
+        }
+        if(type == 7 && rotation == 1){
+            block1.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block4.setOriginXY(block3.getOriginX() - 1, block3.getOriginY());
+        }
+        if(type == 7 && rotation == 2){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block3.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() - 1);
+        }
+        if(type == 7 && rotation == 3){
+            block1.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block4.setOriginXY(block3.getOriginX() + 1, block3.getOriginY());
+        }
+        //Rotation for Piece 1
+        if(type == 1 && rotation == 0){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() + 1);
+        }
+        if(type == 1 && rotation == 1){
+            block1.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block4.setOriginXY(block3.getOriginX() - 1, block3.getOriginY());
+        }
+        if(type == 1 && rotation == 2){
+            block1.setOriginXY(block2.getOriginX(), block2.getOriginY() + 1);
+            block3.setOriginXY(block2.getOriginX(), block2.getOriginY() - 1);
+            block4.setOriginXY(block3.getOriginX(), block3.getOriginY() - 1);
+        }
+        if(type == 1 && rotation == 3){
+            block1.setOriginXY(block2.getOriginX() - 1, block2.getOriginY());
+            block3.setOriginXY(block2.getOriginX() + 1, block2.getOriginY());
+            block4.setOriginXY(block3.getOriginX() + 1, block3.getOriginY());
+        }
+
+        if(rotation == 3)
+            rotation = -1;
+        rotation++;
     }
 }
