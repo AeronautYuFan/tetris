@@ -24,31 +24,34 @@ public class Piece {
     public Piece(int pieceType) {
         type = pieceType;
 
-        //if (t == 2) {
-        //    blockSpots = new Point[]{new Point(5, 0), new Point(6, 0), new Point(7, 0), new Point(6, 1)};
-        //}
-        if (type == 3) {
+        if (type == 2) {
+            blockSpots = new Point[]{new Point(5, 0), new Point(6, 0), new Point(7, 0), new Point(6, 1)};
+        }
+        else if (type == 3) {
             blockSpots = new Point[]{new Point(5, 0), new Point(5, 1), new Point(6, 1), new Point(7, 1)};
         }
-        if (type == 4) {
+        else if (type == 4) {
             blockSpots = new Point[]{new Point(5, 1), new Point(5, 0), new Point(6, 0), new Point(7, 0)};
         }
-        if (type == 5) {
+        else if (type == 5) {
             blockSpots = new Point[]{new Point(6, 0), new Point(6, 1), new Point(7, 1), new Point(7, 0)};
         }
-        if (type == 6) {
+        else if (type == 6) {
             blockSpots = new Point[]{new Point(5, 0), new Point(6, 0), new Point(6, 1), new Point(7, 1)};
         }
-        if (type == 7) {
+        else if (type == 7) {
             blockSpots = new Point[]{new Point(5, 1), new Point(6, 1), new Point(6, 0), new Point(7, 0)};
         }
 
-        else blockSpots = new Point[]{new Point(5, 0), new Point(6, 0), new Point(7, 0), new Point(8, 0)};
+        else
+            blockSpots = new Point[]{new Point(5, 0), new Point(6, 0), new Point(7, 0), new Point(8, 0)};
 
         pieceColor = new Color(
                 (int) (Math.random() * 255),
                 (int) (Math.random() * 255),
                 (int) (Math.random() * 255));
+
+        makeBlocks();
     }
 
     public void makeBlocks() {
@@ -85,13 +88,4 @@ public class Piece {
         block3.moveDown();
         block4.moveDown();
     }
-
-
 }
-
-
-
-
-
-
-
