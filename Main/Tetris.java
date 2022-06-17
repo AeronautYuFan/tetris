@@ -43,6 +43,7 @@ public class Tetris extends JFrame {
             }
             else {
                 board.colorPiece();
+                piece.setRotation(0);
                 Source.setFillValue(piece.getBlock1().getOriginX() - 1, piece.getBlock1().getOriginY(), true);
                 Source.setFillValue(piece.getBlock2().getOriginX() - 1, piece.getBlock2().getOriginY(), true);
                 Source.setFillValue(piece.getBlock3().getOriginX() - 1, piece.getBlock3().getOriginY(), true);
