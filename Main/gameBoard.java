@@ -25,7 +25,7 @@ public class gameBoard extends JPanel {
         //initialize the state of the game
         init();
         //The pieces
-        tetrisBlock = new Piece((int)(Math.random()*7));
+        tetrisBlock = new Piece((int)(Math.random()*7) + 1);
         moveKeys = new movement();
         addKeyListener(moveKeys);
         setFocusable(true);
@@ -274,13 +274,11 @@ public class gameBoard extends JPanel {
                     tetrisBlock.moveDown();
             }
             //up arrow key pressed
-            /*
 
             if (key == KeyEvent.VK_UP) {
                 if (!collisionFloor() && !collisionLeftWall() && !collisionRightWall())
+                    tetrisBlock.rotate();
             }
-
-             */
 
             repaint();
         }
