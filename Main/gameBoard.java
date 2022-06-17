@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
-public class gameBoard extends JPanel implements ActionListener, KeyListener {
+public class gameBoard extends JPanel {
     // the tile size of each grid block
     private final int tileSize = Source.TILESIZE;
     // # of rows
@@ -16,8 +16,8 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
     private Color[][] color;
     //Block object
     private Piece tetrisBlock;
-
-    //private Thread timer;
+    //Movement keys
+    private movement moveKeys;
 
     public gameBoard(){
         //sets the dimensions of the board
@@ -25,12 +25,10 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         //initialize the state of the game
         init();
         //The pieces
-        tetrisBlock = new Piece(5);
-        addKeyListener(this);
+        tetrisBlock = new Piece((int)(Math.random()*7));
+        moveKeys = new movement();
+        addKeyListener(moveKeys);
         setFocusable(true);
-
-        //Moves the pieces down every second
-
     }
 
 
@@ -44,7 +42,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
 
     public Piece getGamePiece() { return tetrisBlock; }
 
-    public void setGamePiece(Piece p) { tetrisBlock = p; }
+    public void setGamePiece() { tetrisBlock = new Piece((int)(Math.random()*7)); }
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
@@ -99,7 +97,7 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
                         !(block2.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
                         !(block3.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
                         !(block4.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) )
-                        )
+                )
         ) result = true;
 
         if (color[block2.getOriginX()][block2.getOriginY() + 1] == Color.GRAY ||
@@ -129,20 +127,90 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         return result;
     }
 
-    public boolean collisionRightWall(){ /*
-        if(color[tetrisBlock.getOriginX() + 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX()][tetrisBlock.getOriginY()]))
-            return true;
-        else */
-            return false;
+    public boolean collisionRightWall(){
+        Block block1 = tetrisBlock.getBlock1();
+        Block block2 = tetrisBlock.getBlock2();
+        Block block3 = tetrisBlock.getBlock3();
+        Block block4 = tetrisBlock.getBlock4();
 
+        boolean result = false;
+
+        if (color[block1.getOriginX() + 1][block1.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block1.getOriginX()][block1.getOriginY()]) &&
+                        !(block2.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block2.getOriginX() + 1][block2.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block2.getOriginX()][block2.getOriginY()]) &&
+                        !(block1.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block3.getOriginX() + 1][block3.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block3.getOriginX()][block3.getOriginY()]) &&
+                        !(block1.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) ) &&
+                        !(block2.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block4.getOriginX() + 1][block4.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block4.getOriginX()][block4.getOriginY()]) &&
+                        !(block1.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) ) &&
+                        !(block2.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        return result;
     }
 
-    public boolean collisionLeftWall(){ /*
-        if(color[tetrisBlock.getOriginX() - 1][tetrisBlock.getOriginY()] == Color.GRAY || (Source.FILL[tetrisBlock.getOriginX() - 2][tetrisBlock.getOriginY()]))
-            return true;
-        else */
-            return false;
+    public boolean collisionLeftWall(){
+        Block block1 = tetrisBlock.getBlock1();
+        Block block2 = tetrisBlock.getBlock2();
+        Block block3 = tetrisBlock.getBlock3();
+        Block block4 = tetrisBlock.getBlock4();
 
+        boolean result = false;
+
+        if (color[block1.getOriginX() - 1][block1.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block1.getOriginX() - 2][block1.getOriginY()]) &&
+                        !(block2.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block1.getOriginX(), block1.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block2.getOriginX() - 1][block2.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block2.getOriginX() - 2][block2.getOriginY()]) &&
+                        !(block1.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block2.getOriginX(), block2.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block3.getOriginX() - 1][block3.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block3.getOriginX() - 2][block3.getOriginY()]) &&
+                        !(block1.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) ) &&
+                        !(block2.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) ) &&
+                        !(block4.checkPoint(block3.getOriginX(), block3.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        if (color[block4.getOriginX() - 1][block4.getOriginY()] == Color.GRAY ||
+                ((Source.FILL[block4.getOriginX() - 2][block4.getOriginY()]) &&
+                        !(block1.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) ) &&
+                        !(block2.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) ) &&
+                        !(block3.checkPoint(block4.getOriginX(), block4.getOriginY() + 1) )
+                )
+        ) result = true;
+
+        return result;
     }
 
     // need a way to remove a row of tetris pieces
@@ -177,39 +245,54 @@ public class gameBoard extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {}
 
-    public void keyPressed(KeyEvent e){
-        // New key press
-        int  key = e.getKeyCode();
+    private class movement implements ActionListener,KeyListener {
 
-        //right arrow key pressed
-
-        if (key == KeyEvent.VK_RIGHT) {
-            if(!collisionFloor() && !collisionRightWall())
-                tetrisBlock.moveLeftRight(1);
+        @Override
+        public void keyTyped(KeyEvent e) {
         }
-        //left arrow key pressed
-        if (key == KeyEvent.VK_LEFT) {
-            if(!collisionFloor() && !collisionLeftWall())
-                tetrisBlock.moveLeftRight(-1);
+
+        public void keyPressed(KeyEvent e) {
+            // New key press
+            int key = e.getKeyCode();
+
+            //right arrow key pressed
+
+            if (key == KeyEvent.VK_RIGHT) {
+                if (!collisionFloor() && !collisionRightWall())
+                    tetrisBlock.moveLeftRight(1);
+            }
+            //left arrow key pressed
+            if (key == KeyEvent.VK_LEFT) {
+                if (!collisionFloor() && !collisionLeftWall())
+                    tetrisBlock.moveLeftRight(-1);
+            }
+            //down arrow key pressed
+
+            if (key == KeyEvent.VK_DOWN) {
+                if (!collisionFloor())
+                    tetrisBlock.moveDown();
+            }
+            //up arrow key pressed
+            /*
+
+            if (key == KeyEvent.VK_UP) {
+                if (!collisionFloor() && !collisionLeftWall() && !collisionRightWall())
+            }
+
+             */
+
+            repaint();
         }
-        //down arrow key pressed
 
-
-        if (key == KeyEvent.VK_DOWN) {
-            if(!collisionFloor())
-                tetrisBlock.moveDown();
+        @Override
+        public void keyReleased(KeyEvent e) {
         }
-        repaint();
-    }
-    @Override
-    public void keyReleased(KeyEvent e) {}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        repaint();
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
     }
 
 }
