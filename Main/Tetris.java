@@ -11,7 +11,7 @@ public class Tetris extends JFrame {
     public Tetris() {
         board = new gameBoard();
         sBoard = new scoreBoard();
-        bigRedButton = new JButton("Restart");
+        bigRedButton = new JButton("Restart (DOES NOT WORK)");
         bigRedButton.setLayout(null);
         bigRedButton.addActionListener(new restartListener());
         bigRedButton.setBounds(160, 401, 30, 30); // 454
@@ -41,6 +41,12 @@ public class Tetris extends JFrame {
                 board.getGamePiece().moveDown();
                 repaint();
             }
+
+            else if(board.rowCheck(0) || board.rowCheck(1)) {
+                sBoard.showGameOver();
+                System.out.println("game over");
+            }
+
             else {
                 board.colorPiece();
                 piece.setRotation(0);
@@ -77,4 +83,4 @@ public class Tetris extends JFrame {
         setVisible (true);
     }
 
-} // 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
+} // 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
