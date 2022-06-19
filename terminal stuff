@@ -1,0 +1,14 @@
+Committing with git:
+git add .
+git commit -m <message here, cannot be blank>
+git push
+
+Overwrite local files to make git pull work
+git reset --hard HEAD
+git clean -f -d
+git pull
+
+Downloading code
+
+cd C:\file\location
+git clone https://github.com/AeronautYuFan/tetris.git
