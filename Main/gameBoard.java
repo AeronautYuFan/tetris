@@ -167,6 +167,8 @@ public class gameBoard extends JPanel {
                 )
         ) result = true;
 
+        if(result) System.out.println("collisionRightWall");
+
         return result;
     }
 
@@ -210,6 +212,8 @@ public class gameBoard extends JPanel {
                 )
         ) result = true;
 
+        if(result) System.out.println("collisionLeftWall");
+
         return result;
     }
 
@@ -222,6 +226,7 @@ public class gameBoard extends JPanel {
             }
         }
         repaint();
+        System.out.println("row at " + row + " was removed");
     }
 
     // checks if there is a filled row, if so, the method removeRow() is used and the score is increased
@@ -243,6 +248,16 @@ public class gameBoard extends JPanel {
             removeRow(tempRow);
             Source.addSCORE(12);
         }
+    }
+    // checks if a row has a block in it. used to end the game
+    public boolean rowCheck(int rowNumber) {
+        boolean result = false;
+        for(int col = 0; col < Source.FILL.length; col++) {
+            if(Source.FILL[col][rowNumber] == true) {
+                result = true;
+            }
+        }
+        return result;
     }
 
 
