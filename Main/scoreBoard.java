@@ -30,4 +30,8 @@ public class scoreBoard extends JPanel {
     public void showGameOver() {
         gameOver.setVisible(true);
     }
+
+    public void removeGameOver(){
+        gameOver.setVisible(false);
+    }
 }
