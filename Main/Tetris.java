@@ -11,7 +11,7 @@ public class Tetris extends JFrame {
     public Tetris() {
         board = new gameBoard();
         sBoard = new scoreBoard();
-        bigRedButton = new JButton("Restart (DOES NOT WORK)");
+        bigRedButton = new JButton("Restart");
         bigRedButton.setLayout(null);
         bigRedButton.addActionListener(new restartListener());
         bigRedButton.setBounds(160, 401, 30, 30); // 454
@@ -62,7 +62,13 @@ public class Tetris extends JFrame {
 
     private class restartListener implements ActionListener {
         public void actionPerformed (ActionEvent event) {
+            remove(board);
+            board = new gameBoard();
+            add(board);
             Source.restart();
+            setVisible(true);
+            sBoard.removeGameOver();
+            board.requestFocusInWindow();
         }
     }
 
