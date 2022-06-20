@@ -42,7 +42,7 @@ public class gameBoard extends JPanel {
 
     public Piece getGamePiece() { return tetrisBlock; }
 
-    public void setGamePiece() { tetrisBlock = new Piece((int)(Math.random()*7)); }
+    public void setGamePiece() { tetrisBlock = new Piece((int)(Math.random()*7) + 1); }
 
     //Creates the 2D array of colors for the background in a grid pattern
     private void init() {
